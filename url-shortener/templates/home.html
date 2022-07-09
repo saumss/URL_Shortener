@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}URL Shortener{% endblock %}
+
+{% block main %}
+
+<h1>URL Shortener</h1>
+<form action="your-url" method="post">
+  <label for="url">Website URL:</label>
+  <br>
+  <input type="url" name="url" value="" required placeholder="Paste the URL you wish to shorten">
+  <br><br>
+  <label for="code">Short Name:</label>
+  <br>
+  <input type="text" name="code" value="" required placeholder="Enter the short name for the URL">
+  <br><br>
+  <input type="submit" value="Shorten">
+</form>
+
+<style>
+  form {
+     box-sizing: border-box;
+     padding: 2rem;
+     border-radius: 1rem;
+     background-color: #f3d9ff;
+     border: 4px solid #650094;
+  }
+
+  input {
+      font: 1.25rem;
+      display: block;
+      box-sizing: border-box;
+      width:100%;
+      padding: 0.5rem 0.75rem;
+
+   }
+  input::placeholder {
+       opacity: 80%;
+       color: #f3d9ff;
+  }
+
+  button:hover {
+        background-color: hsl(213, 73%, 40%);
+  }
+
+  button {
+         background-color: hsl(213, 73%, 50%);
+         color: #f3d9ff;
+  }
+
+  button:focus {
+          outline: none;
+          box-shadow: 0 0 0 4px black;
+  }
+  input:focus {
+          outline: none;
+          box-shadow: 0 0 0 4px #650094;
+  label {
+       display: inline-block;
+       font: bold 1.5rem sans-serif;
+       margin-right: 0.5rem;
+  }
+</style>
+
+<form action="your-url" method="post" enctype="multipart/form-data">
+  <label for="file">File:</label>
+  <br>
+  <input type="file" name="file" value="" required>
+  <br><br>
+  <label for="code">Short Name:</label>
+  <br>
+  <input type="text" name="code" value="" required placeholder="Enter the short name for the file">
+  <br><br>
+  <input type="submit" value="Shorten">
+</form>
+
+{% if codes %}
+<h2>Codes you have created</h2>
+<ul>
+  {% for code in codes %}
+  <a href="{{ url_for('redirect_to_url', code=code) }}">
+  <li>{{ code }}</li>
+  </a>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% endblock %}
